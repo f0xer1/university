@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Univerity</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="topnav">
+    <a th:href="@{/faculty/}">Додати факультет</a>
+    <a th:href="@{/student/}">Додати студентів</a>
+    <a th:href="@{/task/}">Виконати завдання</a>
+</div>
+<div class="container">
+    <p th:if="${success}" th:text="${success}" style="color: green"></p>
+
+    <h2>Cтворіть університет</h2>
+
+    <form method="post" th:action="@{/createUniversity}" th:object="${university}">
+        <p th:if="${error}" th:text="${error}" style="color: red"></p>
+        <p style="color: red" th:errors="*{universityName}"></p>
+        <input type="text" placeholder="Назва університету:" th:field="*{universityName}">
+        <br><br>
+        <input type="submit" value="Створити">
+    </form>
+</div>
+
+
+</body>
+</html>

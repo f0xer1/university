@@ -1,0 +1,35 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="topnav">
+    <a th:href="@{/}">Додати університет</a>
+    <a th:href="@{/student/}">Додати студентів</a>
+    <a th:href="@{/task/}">Виконати завдання</a>
+
+</div>
+<div class="container">
+    <h2>Додайте факультет до університету</h2>
+        <p th:if="${success}" th:text="${success}" style="color: green"></p>
+        <p th:if="${error}" th:text="${error}" style="color: red"></p>
+    <form method="post" th:action="@{/faculty/addFacultyToUniversity}" th:object="${faculty}">
+        <p style="color: red" th:errors="*{facultyName}"></p>
+        <input type="text" placeholder="Назва факультету:" th:field="*{facultyName}">
+        <br><br>
+        <select class="select" name="universityId" value="universityId">
+            <option style="color:blue">Choose University</option>
+            <option th:each="item : ${universities}" style="color:blue" th:value="${item.id}"
+                    th:text="${item.universityName}"></option>
+        </select>
+        <br><br>
+        <input type="submit" value="Додати">
+    </form>
+</div>
+
+
+</body>
+</html>

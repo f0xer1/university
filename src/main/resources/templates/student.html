@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="topnav">
+    <a th:href="@{/}">Додати університет</a>
+    <a th:href="@{/faculty/}">Додати факультет</a>
+    <a th:href="@{/task/}">Виконати завдання</a>
+</div>
+<div class="container">
+    <form method="post" th:action="@{/student/chooseFaculty}" th:object="${student}">
+        <p th:if="${success}" th:text="${success}" style="color: green"></p>
+        <p th:if="${error}" th:text="${error}" style="color: red"></p>
+        <h3 style="color: white;">Виберіть університет:</h3>
+        <select class="select" name="universityId" value="universityId">
+            <option style="color:blue">Choose University</option>
+            <option th:each="item : ${universities}" style="color:blue" th:value="${item.id}"
+                    th:text="${item.universityName}"  th:selected="${item.id == universityId}"></option>
+        </select>
+        <p style="color: red" th:errors="*{name}"></p>
+        <input type="text" placeholder="name:" th:field="*{name}">
+        <p style="color: red" th:errors="*{surname}"></p>
+        <input type="text" placeholder="surname:" th:field="*{surname}">
+        <p style="color: red" th:errors="*{numberOfTheScoreBook}"></p>
+        <input type="text" placeholder="numberOfTheScoreBook:" th:field="*{numberOfTheScoreBook}">
+        <p style="color: red" th:errors="*{gpa}"></p>
+        <input type="text" placeholder="gpa:" th:field="*{gpa}">
+        <br><br>
+        <div th:if="${faculties!= null}">
+
+            <h3 style="color: white;">Виберіть факультет:</h3>
+            <select class="select" name="facultyId" value="facultyId">
+                <option style="color:blue">Choose Faculty</option>
+                <option th:each="item : ${faculties}" style="color:blue" th:value="${item.id}"
+                        th:text="${item.facultyName}"></option>
+            </select>
+        </div>
+        <input type="submit" value="Вибрати">
+    </form>
+</div>
+</body>
+</html>

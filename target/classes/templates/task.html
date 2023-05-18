@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="topnav">
+    <a th:href="@{/}">Додати університет</a>
+    <a th:href="@{/faculty/}">Додати факультет</a>
+    <a th:href="@{/student/}">Додати студентів</a>
+</div>
+<div class="container">
+    <p th:if="${error}" th:text="${error}" style="color: red"></p>
+    <form method="post" th:action="@{/task/chooseFaculty}" >
+        <h3 style="color: white;">Виберіть потрібний університет для завдання :</h3>
+        <select class="select" name="universityId" value="universityId">
+            <option style="color:blue">Choose University</option>
+            <option th:each="item : ${universities}" style="color:blue" th:value="${item.id}"
+                    th:text="${item.universityName}" th:selected="${item.id == universityId}"></option>
+        </select>
+            <h3 style="color: white">Виберіть задачу для виконняння: </h3>
+            <select class="select" name="tasks" value="tasks">
+                <option style="color:blue" value = "first"> Знайти загальну кількість студентів, що навчається в інституті</option>
+                <option style="color:blue" value = "second"> Знайти факультет, на якому навчається найбільша кількість студентів</option>
+                <option style="color:blue" value = "third">Скласти список студентів, у яких середній бал в діапазоні 95..100</option>
+            </select>
+        <input type="submit" value="Виконати">
+    </form>
+    <table id="table">
+        <tr>
+            <td th:if="${result != null}" th:text="${result}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
